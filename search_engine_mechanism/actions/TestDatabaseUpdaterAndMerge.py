@@ -6,14 +6,14 @@ from search_engine_mechanism.infra.WebsiteProductMerge import WebsiteProductMerg
 from search_engine_mechanism.infra.api.DatabaseUpdater import DatabaseUpdater
 from search_engine_mechanism.infra.api.ProductAPI import ProductAPI
 from search_engine_mechanism.infra.api.WebsiteAPI import WebsiteAPI
+from search_engine_mechanism.infra.constans.DbPath import DbPath
 from search_engine_mechanism.infra.constans.products.ProductNamesConstants import ProductNamesConstants
 from search_engine_mechanism.infra.constans.url.WebsiteUrlsConstants import WebsiteUrlsConstants
 
 
 class TestDatabaseUpdaterAndMerge(unittest.TestCase):
     def setUp(self):
-        self.database_path = (r"C:\Users\LENOVO\PycharmProjects\Exon_search_engine\search_engine_mechanism\infra\api"
-                              r"\example.db")
+        self.database_path = ( DbPath.DATABASE_PATH)
 
         self.website_constants = WebsiteUrlsConstants()
         self.product_constants = ProductNamesConstants()
