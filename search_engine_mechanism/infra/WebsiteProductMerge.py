@@ -26,3 +26,4 @@ class WebsiteProductMerge:
     def commit_and_close(self):
         self.conn.commit()
         self.conn.close()
+

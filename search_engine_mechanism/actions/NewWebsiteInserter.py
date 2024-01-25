@@ -1,4 +1,4 @@
-from search_engine_mechanism.infra.api.WebsiteAPI import WebsiteAPI
+from search_engine_mechanism.infra.api.WebsiteAPI import WebsiteAPI, get_current_datetime
 
 
 class NewWebsiteInserter:

@@ -40,15 +40,14 @@ class RankingMechanism:
 
         ranking_parameters = self.get_ranking_parameters()
 
-        # Perform the sorting (ranking) of products based on priority (seniority, keywords, references)
-        # Assuming seniority is determined by the time of product and website update
-        sorted_products = sorted(merged_products, key=lambda x: (
-            datetime.strptime(x[4], "%Y-%m-%d %H:%M:%S"),  # Seniority (website_date_created)
-            len(x[1].split()),  # Keywords (number of keywords in product name)
-            x[3]  # References (assuming x[3] represents references)
-        ), reverse=True)  # Reverse to have higher rank at the top
 
-        # For demonstration purposes, just printing the sorted products
+        sorted_products = sorted(merged_products, key=lambda x: (
+            datetime.strptime(x[4], "%Y-%m-%d %H:%M:%S"),
+            len(x[1].split()),
+            x[3]
+        ), reverse=True)
+
+
         print("Sorted Products:")
         for product in sorted_products:
             print(product)
@@ -56,6 +55,3 @@ class RankingMechanism:
     def commit_and_close(self):
         self.conn.commit()
         self.conn.close()
-
-
-

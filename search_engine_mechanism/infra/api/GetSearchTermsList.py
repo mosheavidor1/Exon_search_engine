@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from search_engine_mechanism.infra.SearchTermsOption import SearchTermsOption
 
 app = Flask(__name__)
-database_path = "example.db"  # Replace with your actual database path
+database_path = "example.db"
 search_terms_option = SearchTermsOption(database_path)
 
 
