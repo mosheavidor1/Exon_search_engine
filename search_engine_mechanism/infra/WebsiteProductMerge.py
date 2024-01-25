@@ -1,53 +1,28 @@
+import random
 import sqlite3
-from datetime import datetime
 
 
 class WebsiteProductMerge:
-    def __init__(self, database_path, website_api):
+    def __init__(self, database_path, website_api, product_api):
         self.conn = sqlite3.connect(database_path)
         self.cursor = self.conn.cursor()
         self.website_api = website_api
+        self.product_api = product_api
 
     def merge_products_with_websites(self):
-        self.cursor.execute('''
-            SELECT p.id AS product_id, p.name AS product_name, wp.website_id, wp.product_page_unique_url
-            FROM products p
-            INNER JOIN website_products wp ON p.id = wp.product_id
-        ''')
-        merged_data = self.cursor.fetchall()
+        # Fetch all products and websites
+        all_products = self.product_api.get_all_products()
+        all_websites = self.website_api.get_all_websites()
 
-        for entry in merged_data:
-            product_id, product_name, website_id, product_page_url = entry
-
-            # Get related keywords for the product from the product API
-            keywords = self.get_related_keywords(product_id)
-
-            # Update website information using WebsiteAPI
-            self.update_website_info(website_id, product_page_url, keywords)
-
-            print(
-                f"Product ID: {product_id}, Product Name: {product_name}, Website ID: {website_id}, URL: {product_page_url}")
+        # Randomly associate each product with a website
+        merged_data = []
+        for product in all_products:
+            website = random.choice(all_websites)
+            merged_entry = {'product_name': product['name'], 'website_url': website['URL']}
+            merged_data.append(merged_entry)
 
         return merged_data
-
-    def get_related_keywords(self, product_id):
-        # Assume you have a function in your product API to get related keywords
-        # Replace this with the actual call to your product API
-        return ["related", "keywords"]
-
-    def update_website_info(self, website_id, website_url, keywords):
-        date_created = self.get_current_datetime()
-
-        # Assume you have additional data for the website (replace with actual data)
-        available_products = 100
-        references = 5
-
-        # Call WebsiteAPI to update website information
-        self.website_api.update_website(website_id, website_url, date_created, available_products, keywords, references)
 
     def commit_and_close(self):
         self.conn.commit()
         self.conn.close()
-
-    def get_current_datetime(self):
-        return datetime.now().strftime("%Y-%m-%d %H:%M:%S")

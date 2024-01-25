@@ -7,7 +7,7 @@ class NewWebsiteInserter:
         self.website_constants = website_constants
 
     def insert_new_website(self, url, seniority):
-        date_created = self.website_api.get_current_datetime()
+        date_created = get_current_datetime()
 
         # Check if the website with the given URL already exists
         existing_website = self.website_api.get_website_by_url(url)

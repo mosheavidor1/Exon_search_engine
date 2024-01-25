@@ -1,18 +1,16 @@
 import sqlite3
 from datetime import datetime
-from search_engine_mechanism.infra.constans.descriptions import ProductDescriptionsConstants
 
 from search_engine_mechanism.infra.constans.products.ProductNamesConstants import ProductNamesConstants
 from search_engine_mechanism.infra.constans.url.WebsiteUrlsConstants import WebsiteUrlsConstants
 
 
 class DatabaseUpdater:
-    def __init__(self, database_path, website_constants, product_constants, product_descriptions_constants):
+    def __init__(self, database_path, website_constants, product_constants):
         self.conn = sqlite3.connect(database_path)
         self.cursor = self.conn.cursor()
         self.website_constants = website_constants
         self.product_constants = product_constants
-        self.product_descriptions_constants = product_descriptions_constants
 
     def create_tables(self):
         # Create Websites table
@@ -52,11 +50,11 @@ class DatabaseUpdater:
 
     def update_products_table(self):
         products_data = [
-            (self.product_constants.SONY_TV_55, self.product_descriptions_constants.SONY_TV_55, "electronics, TV",
+            (self.product_constants.SONY_TV_55, "Description for Sony 55-inch TV", "electronics, TV",
              self.get_current_datetime()),
-            (self.product_constants.TV_SAMSUNG_75, self.product_descriptions_constants.TV_SAMSUNG_75, "electronics, TV",
+            (self.product_constants.TV_SAMSUNG_75, "Description for Samsung 75-inch TV", "electronics, TV",
              self.get_current_datetime()),
-            (self.product_constants.TV_LG_65, self.product_descriptions_constants.TV_LG_65, "electronics, TV",
+            (self.product_constants.TV_LG_65, "Description for LG 65-inch TV", "electronics, TV",
              self.get_current_datetime()),
         ]
 
@@ -76,10 +74,9 @@ class DatabaseUpdater:
 # Example usage
 website_constants = WebsiteUrlsConstants()
 product_constants = ProductNamesConstants()
-product_descriptions_constants = ProductDescriptionsConstants
-
-database_path = "example.db"  # Replace with the actual path to your SQLite database file
-db_updater = DatabaseUpdater(database_path, website_constants, product_constants, product_descriptions_constants)
+database_path = ("C:\\Users\\LENOVO\\PycharmProjects\\Exon_search_engine\\search_engine_mechanism\\infra\\api"
+                 "\\example.db")
+db_updater = DatabaseUpdater(database_path, website_constants, product_constants)
 db_updater.create_tables()
 db_updater.update_websites_table()
 db_updater.update_products_table()

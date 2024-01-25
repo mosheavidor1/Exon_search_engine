@@ -1,7 +1,7 @@
 import sqlite3
 from datetime import datetime
 
-from search_engine_mechanism.infra.DatabaseUpdater import database_path
+from search_engine_mechanism.infra.api.DatabaseUpdater import database_path
 
 
 class WebsiteProductMerge:
